@@ -15,7 +15,8 @@ module.exports = {
     static: path.resolve(__dirname, './build'),
     compress: true,
     port: 8081,
-    open: true
+    open: true,
+    hot: true
   },
   module: {
     rules: [

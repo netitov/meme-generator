@@ -1,0 +1,45 @@
+.promo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5em;
+}
+
+.promo__heading {
+  font-size: 3em;
+  color: #f8c25e;
+  margin: 0 0 20px;
+}
+
+.promo__description {
+  margin: 0;
+  font-size: 1.2em;
+  color: #545454;
+  line-height: 1.7em;
+}
+
+.promo__upload-btn {
+  display: none;
+}
+
+.promo__upload-label {
+  margin-top: 40px;
+  background-color: #edb237;
+  min-height: 60px;
+  min-width: 255px;
+  box-sizing: border-box;
+  padding: 3px 10px;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.promo__upload-label:hover {
+  background-color: #ffc346;
+}

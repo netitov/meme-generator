@@ -1,0 +1,56 @@
+
+.page {
+  font-family: 'Noto Sans Display', sans-serif;
+}
+
+.page__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page__logo {
+  width: 60px;
+  margin-top: 10px;
+}
+
+.page__error {
+  position: absolute;
+  right: 2%;
+  top: 2%;
+  width: 232px;
+  background: #ff7050;
+  min-height: 35px;
+  padding: 10px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  left: auto;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(-100%);
+}
+
+.popup_opened .page__error {
+  transform: translateY(0);
+}
+
+
+.page__error-close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.page__error-close-btn > svg {
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+  display: block;
+}
+
+.page__error-text {
+  color: #fff;
+  margin-right: 5px;
+  font-size: 15px;
+}
