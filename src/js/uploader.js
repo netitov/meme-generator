@@ -55,7 +55,7 @@ export default class Uploader {
     const imgElement = document.createElement('img');
     imgElement.classList.add('editor__img');
     imgElement.src = src;
-    const imageContainer = document.querySelector('.editor__img-box');
+    const imageContainer = document.querySelector('.editor__img-container');
 
     //appeand image on page
     imageContainer.appendChild(imgElement);

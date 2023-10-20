@@ -19,9 +19,23 @@
   flex-direction: column;
 }
 
+.editor__img-container {
+  position: relative;
+}
+
 .editor__img {
   max-height: 90vh;
   max-width: 100%;
+  display: block;
+}
+
+.editor__text-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .editor__text {
@@ -42,9 +56,15 @@
   cursor: grab;
 }
 
-.editor__toolbar {
+.editor__tool-box {
+  display: flex;
+  gap: 10px;
   position: sticky;
   top: 0;
+  z-index: 5;
+}
+
+.editor__toolbar {
   display: flex;
   gap: 7px;
   min-height: 40px;
@@ -59,12 +79,43 @@
   transform: translateY(50%);
   opacity: 0;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
 }
 
 .editor__toolbar_active {
   visibility: visible;
   transform: translateY(0);
   opacity: 1;
+}
+
+.editor__add-btn {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: #f6f6f6;
+  box-shadow: 0px 0px 3px #0006;
+  margin-bottom: 10px;
+  transition: all 0.3s;
+}
+
+.editor__add-btn_inactive {
+  opacity: 0.4;
+}
+
+.editor__add-btn:hover:not(.editor__add-btn_inactive) {
+  background-color: #e6e6e6;
+  cursor: pointer;
+}
+
+.editor__add-btn > span {
+  background-image: url('../img/add.svg');
+  width: 26px;
+  display: block;
+  background-size: contain;
+  height: 26px;
+  background-repeat: no-repeat;
 }
 
 .editor__label, .editor__delete-btn {
