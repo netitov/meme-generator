@@ -21,14 +21,78 @@
         <h1 class="promo__heading">meme generator</h1>
         <p class="promo__description">Создавай свои мемы из изображений</p>
         <p class="promo__description">Загрузи изображение, добавь текст и скачай свой мем</p>
-        <input class="promo__upload-btn" id="promo__upload-btn" type="file" accept="image/*">
-        <label class="promo__upload-label" for="promo__upload-btn">Загрузить изображение</label>
+        <div class="promo__upload-box">
+          <input class="promo__upload-btn" id="promo__upload-btn" type="file" accept="image/*">
+          <label class="promo__upload-label" for="promo__upload-btn">Загрузить изображение</label>
+          <div class="page__spinner promo-spinner" ></div>
+        </div>
       </div>
 
       <!-- editor -->
       <div class="page__editor editor">
 
         <div class="editor__img-box">
+
+          <!-- text box -->
+          <div class="editor__text" role="textbox" contenteditable>Введите текст</div>
+
+          <!-- toolbar -->
+          <div class="editor__toolbar">
+
+            <!-- font-size -->
+            <div class="editor__toolbar-element">
+              <label class="editor__label editor__font-size" for="input-font-size" title="Размер шрифта">
+                <span></span>
+              </label>
+              <input class="editor__input" id="input-font-size" type="number" value="50" name="fontSize">
+            </div>
+
+            <!-- font-color -->
+            <div class="editor__toolbar-element">
+              <label class="editor__label editor__color" for="input-font-color" title="Цвет шрифта">
+                <span></span>
+              </label>
+              <input class="editor__input" id="input-font-color" type="color" name="color" value="#ffffff">
+            </div>
+
+            <!-- bold -->
+            <div class="editor__toolbar-element">
+              <label class="editor__label editor__bold" for="input-bold" title="Полужирный">
+                <span></span>
+              </label>
+              <input class="editor__input" id="input-bold" type="checkbox" name="fontWeight">
+            </div>
+
+            <!-- italic-->
+            <div class="editor__toolbar-element">
+              <label class="editor__label editor__italic" for="input-italic" title="Курсив">
+                <span></span>
+              </label>
+              <input class="editor__input" id="input-italic" type="checkbox" name="fontStyle">
+            </div>
+
+            <!-- underline -->
+            <div class="editor__toolbar-element">
+              <label class="editor__label editor__underline" for="input-underline" title="Подчеркнутый">
+                <span></span>
+              </label>
+              <input class="editor__input" id="input-underline" type="checkbox" name="textDecoration">
+            </div>
+
+            <!-- background -->
+            <div class="editor__toolbar-element">
+              <label class="editor__label editor__back" for="input-back" title="Заливка">
+                <span></span>
+              </label>
+              <input class="editor__input" id="input-back" type="color" name="backgroundColor">
+            </div>
+
+            <button type="button" class="editor__delete-btn" title="Удалить текст">
+              <span></span>
+            </button>
+
+          </div>
+
         </div>
 
       </div>

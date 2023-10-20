@@ -2,6 +2,8 @@
 export default class Uploader {
   constructor (openErrorPopup) {
     this._inputElement = document.querySelector('.promo__upload-btn');
+    this._editorContainer = document.querySelector('.editor');
+    this._spinner = document.querySelector('.promo-spinner');
     this._fileUrl;
     this._openErrorPopup = openErrorPopup;
   }
@@ -20,26 +22,42 @@ export default class Uploader {
     const file = e.target.files[0];
     const fileIsValid = this._checkFileType(file);
 
+    this._spinner.classList.add('page__spinner_active');
+
     //if format is valid, create img URL
     if (fileIsValid) {
       this._fileUrl = window.URL.createObjectURL(file);
 
-      this._renderImg(this._fileUrl)
+      //render image after upload
+      this._renderImg(this._fileUrl);
+
+      //smooth scroll to image after upload and activate editor container
+      this._editorContainer.classList.add('editor_active');
+      setTimeout(() => {
+        this._spinner.classList.remove('page__spinner_active');
+        this._editorContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+
     } else {
       //otherwise show error
       this._openErrorPopup();
     }
+
+
   }
 
   _renderImg(src) {
-    const imgElement = document.createElement('img');
-    imgElement.classList.add('.editor__img')
-    imgElement.src = src;
-
-    const imageContainer = document.querySelector('.editor__img-box');
     //remove prev image
-    imageContainer.innerHTML = '';
-    //appeand imageon page
+    const currentElement = document.querySelector('.editor__img');
+    currentElement && currentElement.remove();
+
+    //create new image
+    const imgElement = document.createElement('img');
+    imgElement.classList.add('editor__img');
+    imgElement.src = src;
+    const imageContainer = document.querySelector('.editor__img-box');
+
+    //appeand image on page
     imageContainer.appendChild(imgElement);
   }
 

@@ -1,0 +1,158 @@
+.editor {
+  justify-content: center;
+  /* margin: 4em 0 3em; */
+  min-height: 100vh;
+  padding: 0 10px 4em;
+  display: none;
+  padding-top: 3em;
+}
+
+.editor_active {
+  display: flex;
+}
+
+.editor__img-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-direction: column;
+}
+
+.editor__img {
+  max-height: 90vh;
+  max-width: 100%;
+}
+
+.editor__text {
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  font-size: 50px;
+  color: #fff;
+  text-align: center;
+  outline: none;
+  padding: 3px 15px;
+}
+
+.editor__text:hover, .editor__text:focus {
+  outline-style: dotted;
+  outline-width: medium;
+  outline-color: #fff;
+  cursor: grab;
+}
+
+.editor__toolbar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  gap: 7px;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 7px;
+  background-color: #f6f6f6;
+  border-radius: 10px;
+  box-shadow: 0px 0px 3px #0006;
+  margin-bottom: 10px;
+  visibility: hidden;
+  transform: translateY(50%);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.editor__toolbar_active {
+  visibility: visible;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.editor__label, .editor__delete-btn {
+  padding: 5px;
+  border-radius: 8px;
+  transition:  background-color 0.3s;
+  display: block;
+  cursor: pointer;
+}
+
+.editor__label:hover, .editor__label_active, .editor__delete-btn:hover {
+  background-color: #e6e6e6;
+}
+
+.editor__label > span, .editor__delete-btn > span {
+  display: block;
+  width: 22px;
+  height: 22px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.editor__delete-btn > span {
+  background-image: url('../img/trash-can.svg');
+}
+
+.editor__font-size > span {
+  background-image: url('../img/font-size.svg');
+}
+
+.editor__color > span {
+  background-image: url('../img/text-color.svg');
+}
+
+.editor__bold > span {
+  background-image: url('../img/bold.svg');
+}
+
+.editor__italic > span {
+  background-image: url('../img/italic.svg');
+}
+
+.editor__underline > span {
+  background-image: url('../img/underline.svg');
+}
+
+.editor__align > span {
+  background-image: url('../img/text-align.svg');
+}
+
+.editor__back > span {
+  background-image: url('../img/background-color.svg');
+}
+
+.editor__input {
+  display: none;
+  position: absolute;
+  border: none;
+  border-radius: 6px;
+  box-shadow: 0px 0px 5px #818181;
+  outline: none;
+  padding: 3px;
+  background-color: #e6e6e6;
+  text-align: center;
+  bottom: -35px;
+}
+
+.editor__input_active {
+  display: block;
+}
+
+#input-font-size {
+  width: 45px;
+  height: 27px;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+  display: none;
+}
+
+input[type="color"].editor__input_active {
+  height: 0;
+  padding: 0;
+  bottom: 0px;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
