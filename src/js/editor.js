@@ -22,6 +22,9 @@ export default class Editor {
       backgroundColor: 'none'
     };
     this._checkedInputsValue = { fontWeight: 600, fontStyle: 'italic', textDecoration: 'underline' };
+    this._draggedElement = null;
+    this._offsetX;
+    this._offsetY;
   }
 
   _closeActiveInput(e) {
@@ -197,6 +200,33 @@ export default class Editor {
       this._addText(this._textContainer);
     })
 
+    //handle text moving: initialize offset
+    this._textContainer.addEventListener('mousedown', (e) => {
+      if (e.target.classList.contains('editor__text')) {
+        this._draggedElement = e.target;
+        const elementY = this._draggedElement.getBoundingClientRect().top;
+        const elementX = this._draggedElement.getBoundingClientRect().left;
+        this._offsetY = e.clientY - elementY + elementY - e.target.offsetTop;
+        this._offsetX = e.clientX - elementX + elementX - e.target.offsetLeft;
+        this._draggedElement.classList.add('editor__text_grabbed');
+      }
+    });
+
+    //handle text moving: set new position
+    this._textContainer.addEventListener('mousemove', (e) => {
+      if (this._draggedElement) {
+        const x = e.clientX - this._offsetX;
+        const y = e.clientY - this._offsetY;
+        this._draggedElement.style.left = x + 'px';
+        this._draggedElement.style.top = y + 'px';
+      }
+    });
+
+    //handle text moving: drop dragged element
+    this._textContainer.addEventListener('mouseup', () => {
+      if (this._draggedElement) this._draggedElement.classList.remove('editor__text_grabbed');
+      this._draggedElement = null;
+    });
   }
 
 }

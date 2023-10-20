@@ -49,6 +49,11 @@
   padding: 3px 15px;
 }
 
+.editor__text_grabbed {
+  z-index: 5;
+  cursor: grabbing;
+}
+
 .editor__text:hover, .editor__text:focus {
   outline-style: dotted;
   outline-width: medium;
