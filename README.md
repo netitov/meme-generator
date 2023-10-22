@@ -5,7 +5,7 @@
 Create your own memes!
 Upload an image, add text and download your meme
 
-View the project: <>
+View the project: <https://netitov.github.io/meme-generator/>
 
 ### Features and content
 
