@@ -1,11 +1,14 @@
 
 export default class Uploader {
-  constructor (openErrorPopup) {
+  constructor ( { openErrorPopup, addInitText, dropEditor }) {
     this._inputElement = document.querySelector('.promo__upload-btn');
     this._editorContainer = document.querySelector('.editor');
     this._spinner = document.querySelector('.promo-spinner');
     this._fileUrl;
-    this._openErrorPopup = openErrorPopup;
+    this.openErrorPopup = openErrorPopup;
+    this.addInitText = addInitText;
+    this.dropEditor = dropEditor;
+
   }
 
   //check file format
@@ -38,12 +41,13 @@ export default class Uploader {
         this._editorContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 300);
 
+      this.addInitText();
+
     } else {
       //otherwise show error
-      this._openErrorPopup();
+      this.openErrorPopup();
+      this._spinner.classList.remove('page__spinner_active');
     }
-
-
   }
 
   _renderImg(src) {
@@ -62,7 +66,12 @@ export default class Uploader {
   }
 
   setEventListeners() {
-    this._inputElement.addEventListener('change', (e) => this._handleFileUpload(e));
+    this._inputElement.addEventListener('change', (e) => {
+      //drop previous meme data
+      this.dropEditor();
+      //updaload file
+      this._handleFileUpload(e)
+    });
   }
 
 

@@ -1,10 +1,10 @@
 .editor {
   justify-content: center;
+  align-items: flex-start;
   /* margin: 4em 0 3em; */
   min-height: 100vh;
-  padding: 0 10px 4em;
+  padding: 20px 10px 4em;
   display: none;
-  padding-top: 3em;
 }
 
 .editor_active {
@@ -25,7 +25,7 @@
 
 .editor__img {
   max-height: 90vh;
-  max-width: 100%;
+  max-width: 800px;
   display: block;
 }
 
@@ -44,7 +44,7 @@
   border: none;
   font-size: 50px;
   color: #fff;
-  text-align: center;
+  text-align: start;
   outline: none;
   padding: 3px 15px;
 }
@@ -54,7 +54,7 @@
   cursor: grabbing;
 }
 
-.editor__text:hover, .editor__text:focus {
+.editor__text:hover, .editor__text:focus, .editor__text_focused {
   outline-style: dotted;
   outline-width: medium;
   outline-color: #fff;
@@ -121,6 +121,20 @@
   background-size: contain;
   height: 26px;
   background-repeat: no-repeat;
+}
+
+.editor__download-btn {
+  padding: 5px;
+  border-radius: 10px;
+  background-color: #edb237;
+  margin-bottom: 10px;
+  transition: all 0.3s;
+  cursor: pointer;
+  color: #fff;
+}
+
+.editor__download-btn:hover {
+  background-color: #ffc346;
 }
 
 .editor__label, .editor__delete-btn {

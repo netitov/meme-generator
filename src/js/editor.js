@@ -14,7 +14,7 @@ export default class Editor {
     this._activeText;
     this._textStyleArray = [];
     this._initInputsValue = {
-      fontSize: 50,
+      fontSize: '50px',
       color: '#ffffff',
       fontWeight: 400,
       fontStyle: 'normal',
@@ -25,6 +25,11 @@ export default class Editor {
     this._draggedElement = null;
     this._offsetX;
     this._offsetY;
+    this._textDefaultHeight = 64;
+  }
+
+  getTextList() {
+    return this._textStyleArray;
   }
 
   _closeActiveInput(e) {
@@ -35,10 +40,12 @@ export default class Editor {
 
   _hideToolBar() {
     this._toolbar.classList.remove('editor__toolbar_active');
+    this._activeText.classList.remove('editor__text_focused');
     this._activeText;
   }
 
   _dropActiveInputs() {
+    if (this._activeText) this._activeText.classList.remove('editor__text_focused');
     Array.from(this._labels).forEach((i) => {
       i.classList.remove('editor__label_active');
       if (this._initInputsValue[i.control.name]) i.control.value = this._initInputsValue[i.control.name];
@@ -107,31 +114,70 @@ export default class Editor {
     }
   }
 
-  _addText(container) {
-
-    //find current taken height
+  addText(container) {
     this._textElements = Array.from(document.querySelectorAll('.editor__text'));
+    //find current taken height
     const heights = this._textElements.map(element => element.offsetHeight);
     const totalHeight = heights.reduce((prev, current) => prev + current, 0);
+    const lowestElement = this._getLowestText(this._textElements);
 
     //add element if space left
-    if (this._textContainer.offsetHeight > (totalHeight + 64)) {
+    if (this._textContainer.offsetHeight > (totalHeight + this._textDefaultHeight) || this._textElements.length === 0) {
       const element = document.createElement('div');
       element.textContent = 'Введите текст';
       element.classList.add('editor__text');
       element.setAttribute('role', 'textbox');
       element.setAttribute('contenteditable', 'true');
-      //find last text position
-      const lastText = this._textElements[this._textElements.length - 1];
-      //set element position after previous one
-      element.style.top = lastText.offsetTop + lastText.offsetHeight + 'px';
+
+      //select where to append element - top or bottom relatively to lowest element
+      if (!lowestElement) {
+        element.style.top = 0 + 'px';
+      } else if ((lowestElement.offsetTop + lowestElement.offsetHeight + this._textDefaultHeight)  > this._textContainer.offsetHeight) {
+        element.style.top = lowestElement.offsetTop - lowestElement.offsetHeight + 'px';
+      } else {
+        element.style.top = lowestElement.offsetTop + lowestElement.offsetHeight + 'px';
+      }
+
       container.appendChild(element);
       this._addBtn.classList.remove('editor__add-btn_inactive');
+
+      //add init styles
+      const initStyles = this._initInputsValue;
+      this._textStyleArray.push({ ...initStyles, textElement: element });
     } else {
       //disactive add btn if no space for text left
       this._addBtn.classList.add('editor__add-btn_inactive');
     }
 
+  }
+
+  _getLowestText(elements) {
+    let lowestElement = elements[0];
+    elements.forEach(element => {
+      if (element.offsetTop > lowestElement.offsetTop) {
+        lowestElement = element;
+      }
+    });
+    return lowestElement;
+  }
+
+  dropEditor() {
+    //dropp states
+    this._activeInput;
+    this._activeText;
+    this._textStyleArray = [];
+    this._draggedElement = null;
+    this._offsetX;
+    this._offsetY;
+
+    //remove created texts
+    this._textElements = Array.from(document.querySelectorAll('.editor__text'));
+    if (this._textElements) {
+      this._textElements.forEach((i) => {
+        i.remove();
+      })
+    }
+    this._textElements = '';
   }
 
   setEventListeners() {
@@ -172,7 +218,7 @@ export default class Editor {
     //keep text focus if toolbar clicked
     this._toolbar.addEventListener('click', (e) => {
       e.stopPropagation();
-      this._activeText.focus();
+      this._activeText.classList.add('editor__text_focused');
     })
 
     //handle text style change
@@ -197,7 +243,7 @@ export default class Editor {
 
     //handle add text
     this._addBtn.addEventListener('click', () => {
-      this._addText(this._textContainer);
+      this.addText(this._textContainer);
     })
 
     //handle text moving: initialize offset
